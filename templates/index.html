@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Nation Alpha</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+    <h1 class="masterhead">Discord Nation Alpha</h1>
+    <div class="container">
+        <img src="{% static 'img/virtualOffice.jpg' %}" alt="Discord Nation Alpha Logo" height="400" width="700" class="center">
+    </div>
+    <div class="container">
+        <h2>Our Business</h2>
+        <p>Discord Nation Alpha is a community of gamers, developers, and artists. Our goal is to provide a platform for people to connect, collaborate, and create together. We are committed to fostering a safe and welcoming environment where creativity, innovation, and collaboration thrive. By working together, we believe we can achieve great things and create a better world for everyone.</p>
+    </div>
+    <div class="container">
+        <h2>What we do</h2>
+        <p>Connect. Collaborate. Create.</p>       
+        <p>At DNA, we believe that by working together, we can achieve great things. We started with community management and scaled to influencer marketing and software design. We've only just started, but we already know that Business we build requires hard-earned skills, dedication, and a daring attitude.</p>
+    </div>
+    
+    <section class="container">
+        <div class="foot-img">
+            <blockquote>
+                <p>"Coming together is a beginning; <br>
+                    keeping together is progress; <br>
+                    working together is success."<br> - Henry Ford</p>
+            </blockquote>
+        </div>
+    </section>
+        
+    <section class="contact">
+        <div class="contact-info">
+            <h3>Get in Touch with Us</h3>
+            <p>Delhi</p>
+            <p><a href="mailto:contact@dna.org">Email us</a></p>
+            <p><a href="https://linkedin.com/company/dna-discord-nation-alpha">LinkedIn</a></p>
+        </div>
+    
+        <div class="contact-image">
+            <img src="{% static 'img/contact.png' %}" alt="People working together" />
+        </div>
+    </section>
+
+    <div id="subscriptionForm" class="subscription-overlay">
+        <div class="subscription-content">
+            <button class="close-btn" id="closeSubscription">&times;</button>
+            <h2 class="subscribe__title">Stay Updated</h2>
+            <p class="subscribe__copy">Subscribe for the latest updates and news. No spam, we promise!</p>
+            <div class="form">
+                <input id="email" type="email" class="form__email" placeholder="Enter your email address" />
+                <button class="form__button" id="subscribeBtn">Subscribe</button>
+            </div>
+            <p id="successMessage" class="notice" style="display: none; color: green;">Thank you for subscribing!</p>
+            <p id="errorMessage" class="notice" style="display: none; color: red;">Please enter a valid email address.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2021 Discord Nation Alpha. All rights reserved.</p>
+    </div>
+    <script src="{% static '/js/script.js' %}"></script>
+</body>
+</html>
