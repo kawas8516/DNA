@@ -1,0 +1,15 @@
+[build]
+  base = "/"
+  publish = "staticfiles"
+  command = "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+
+[context.production.environment]
+  DATABASE_URL = "postgresql://subscriptions_owner:ZPwXx0tQzDq2@ep-winter-salad-a1r9l4c3.ap-southeast-1.aws.neon.tech/subscriptions?sslmode=require"
+  SECRET_KEY = "django-insecure-qpn*w(&3_om5193kzwjy*naln1+9^g6i68lhoao@bw%*1z)_lj"
+  DEBUG = "False"
+  ALLOWED_HOSTS = "dna-9xid.onrender.com,https://discordnationalpha.netlify.app/"
+  DB_NAME = "subscriptions"
+  DB_USER = "subscriptions_owner"
+  DB_PASSWORD = "ZPwXx0tQzDq2"
+  DB_HOST = "ep-winter-salad-a1r9l4c3.ap-southeast-1.aws.neon.tech"
+  DB_PORT = "5432"
