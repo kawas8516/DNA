@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (validateEmail(email)) {
             // Send email to the backend
-            fetch("http://127.0.0.1:8000/api/save_email/", {
+            fetch("https://dna-9xid.onrender.com/api/save_email/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
