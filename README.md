@@ -2,12 +2,11 @@
 
 Discord Nation Alpha is a community of gamers, developers, and artists. Our goal is to provide a platform for people to connect, collaborate, and create together. We are committed to fostering a safe and welcoming environment where creativity, innovation, and collaboration thrive.
 
-## Features
+## What we do
 
 - Community management
 - Influencer marketing
-- Software design
-- Subscription form for updates
+- Consultancy
 
 ## Technologies Used
 
