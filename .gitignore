@@ -27,3 +27,5 @@ my_django_environment/
 Thumbs.db
 
 db.sqlite3
+.env
+.pyc
