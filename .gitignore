@@ -29,3 +29,6 @@ Thumbs.db
 db.sqlite3
 .env
 .pyc
+.env
+DNA/__pycache__/settings.cpython-39.pyc
+DNA/__pycache__/urls.cpython-39.pyc
