@@ -100,15 +100,15 @@ body {
 }
 
 .nav-links a {
-    font-size: 13px;
-    font-weight: 400;
-    color: oklch(1.000 0.000 0 / 0.80);
+    font-size: 14px;
+    font-weight: 600;
+    color: oklch(1.000 0.000 0);
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .navbar.scrolled .nav-links a {
-    color: var(--muted);
+    color: var(--ink);
 }
 
 .nav-links a:hover {
