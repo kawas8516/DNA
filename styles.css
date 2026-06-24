@@ -1,14 +1,41 @@
-/* Design tokens */
+/* ─── Design tokens ─────────────────────────────────────────────────────────
+   Color strategy: Committed — cobalt harbor blue (hue 230°) carries 30-60%
+   of the page surface (hero, surface section, quote, footer).
+   Seed: oklch(0.550 0.105 230) — palette-script ref seed-164
+   ─────────────────────────────────────────────────────────────────────────── */
 :root {
-    --bg: #FFFFFF;
-    --surface: #F5F5F7;
-    --text-primary: #1D1D1F;
-    --text-secondary: #86868B;
-    --accent: #0071E3;
-    --border: #D2D2D7;
-    --font: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    /* Backgrounds */
+    --bg:           oklch(1.000 0.000   0);   /* pure white */
+    --surface:      oklch(0.962 0.016 232);   /* cobalt-tinted section bg */
+
+    /* Text */
+    --ink:          oklch(0.160 0.025 232);   /* near-black, cobalt-hued */
+    --muted:        oklch(0.450 0.020 232);   /* secondary text — ≥5:1 on --bg */
+
+    /* Brand */
+    --primary:      oklch(0.520 0.195 232);   /* cobalt harbor blue */
+    --primary-deep: oklch(0.275 0.130 232);   /* deep cobalt — hero overlay, quote */
+    --accent:       oklch(0.820 0.148  55);   /* warm amber — hero subtitle pop */
+
+    /* Structure */
+    --border:       oklch(0.872 0.026 232);   /* cobalt-tinted divider */
+    --footer-bg:    oklch(0.112 0.028 232);   /* dark cobalt footer */
+
+    --font: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+
+    /* Easing curves */
+    --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* Z-index scale */
+    --z-sticky:  100;
+    --z-modal:   300;
+    --z-toast:   400;
+    --z-tooltip: 500;
 }
 
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -22,26 +49,26 @@ html {
 body {
     font-family: var(--font);
     background-color: var(--bg);
-    color: var(--text-primary);
+    color: var(--ink);
     -webkit-font-smoothing: antialiased;
 }
 
-/* Navbar */
+/* ─── Navbar ─────────────────────────────────────────────────────────────── */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
+    z-index: var(--z-sticky);
     height: 48px;
     transition: background 0.3s ease, border-bottom 0.3s ease;
 }
 
 .navbar.scrolled {
-    background: rgba(255, 255, 255, 0.72);
+    background: oklch(1.000 0.000 0 / 0.78);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid oklch(0.880 0.000 0);
 }
 
 .nav-inner {
@@ -56,13 +83,14 @@ body {
 
 .nav-logo {
     font-size: 18px;
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.3px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
 }
 
-.navbar:not(.scrolled) .nav-logo {
-    color: #fff;
+.navbar.scrolled .nav-logo {
+    color: var(--primary);
 }
 
 .nav-links {
@@ -74,29 +102,33 @@ body {
 .nav-links a {
     font-size: 13px;
     font-weight: 400;
-    color: var(--text-secondary);
+    color: oklch(1.000 0.000 0 / 0.80);
     text-decoration: none;
     transition: color 0.2s;
 }
 
-.navbar:not(.scrolled) .nav-links a {
-    color: rgba(255, 255, 255, 0.8);
+.navbar.scrolled .nav-links a {
+    color: var(--muted);
 }
 
 .nav-links a:hover {
-    color: var(--text-primary);
-}
-
-.navbar:not(.scrolled) .nav-links a:hover {
     color: #fff;
 }
 
-/* Hero */
+.navbar.scrolled .nav-links a:hover {
+    color: var(--primary);
+}
+
+/* ─── Hero ───────────────────────────────────────────────────────────────── */
 .hero {
     height: 100vh;
     min-height: 520px;
     background-image:
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.58)),
+        linear-gradient(
+            to bottom,
+            oklch(0.100 0.000 0 / 0.40),
+            oklch(0.080 0.000 0 / 0.65)
+        ),
         url('img/virtualOffice.jpg');
     background-size: cover;
     background-position: center;
@@ -113,17 +145,18 @@ body {
     color: #fff;
     letter-spacing: -1px;
     line-height: 1.05;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
+    text-wrap: balance;
 }
 
 .hero-sub {
     font-size: clamp(17px, 2.5vw, 22px);
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.85);
-    letter-spacing: 0.2px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.3px;
 }
 
-/* Shared section layout */
+/* ─── Section layout ─────────────────────────────────────────────────────── */
 .section-white {
     background: var(--bg);
     padding: 96px 24px;
@@ -139,62 +172,63 @@ body {
     margin: 0 auto;
 }
 
-/* Eyebrow label */
-.eyebrow {
-    display: block;
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 14px;
-}
-
-/* Section headings */
+/* ─── Typography ─────────────────────────────────────────────────────────── */
 h2 {
     font-size: clamp(28px, 4vw, 40px);
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--ink);
     letter-spacing: -0.5px;
     line-height: 1.15;
     margin-bottom: 24px;
+    text-wrap: balance;
 }
 
-/* Body text */
+h3 {
+    text-wrap: balance;
+}
+
 .content-block > p,
 .feature-body {
     font-size: 17px;
     font-weight: 400;
     line-height: 1.65;
-    color: var(--text-secondary);
-    max-width: 680px;
+    color: var(--muted);
+    max-width: 68ch;
+    text-wrap: pretty;
 }
 
-/* Feature grid */
+/* ─── Feature grid ───────────────────────────────────────────────────────── */
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+    gap: 16px;
     margin: 48px 0;
+    padding: 0 4px;
 }
 
 .feature-tile {
     background: var(--bg);
-    border-radius: 18px;
-    padding: 40px 32px;
+    border-radius: 16px;
+    padding: 40px 32px 36px;
     text-align: left;
 }
 
-.feature-icon {
-    font-size: 28px;
-    margin-bottom: 20px;
+/* Numbered sequence — earned: Connect→Collaborate→Create is DNA's literal
+   operating flow; order carries meaning for both audience types. */
+.tile-num {
+    display: block;
+    font-size: clamp(40px, 5vw, 60px);
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -2px;
     line-height: 1;
+    margin-bottom: 20px;
 }
 
 .feature-tile h3 {
     font-size: 20px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--ink);
     margin-bottom: 10px;
     letter-spacing: -0.2px;
 }
@@ -202,18 +236,21 @@ h2 {
 .feature-tile p {
     font-size: 15px;
     line-height: 1.6;
-    color: var(--text-secondary);
+    color: var(--muted);
 }
 
 .feature-body {
     margin-top: 16px;
 }
 
-/* Quote section */
+/* ─── Quote section ──────────────────────────────────────────────────────── */
 .quote-section {
     height: 400px;
     background-image:
-        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        linear-gradient(
+            oklch(0.080 0.000 0 / 0.55),
+            oklch(0.080 0.000 0 / 0.65)
+        ),
         url('img/pexels-ivan-samkov-7213192.jpg');
     background-size: cover;
     background-position: center;
@@ -232,17 +269,18 @@ h2 {
     line-height: 1.6;
     margin-bottom: 20px;
     letter-spacing: 0.1px;
+    text-wrap: balance;
 }
 
 .quote-section cite {
     font-size: 14px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.7);
+    color: oklch(1.000 0.000 0 / 0.68);
     font-style: normal;
     letter-spacing: 0.5px;
 }
 
-/* Contact */
+/* ─── Contact ────────────────────────────────────────────────────────────── */
 .contact-card {
     max-width: 980px;
     margin: 0 auto;
@@ -252,7 +290,7 @@ h2 {
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 18px;
-    padding: 56px 56px;
+    padding: 56px;
 }
 
 .contact-info {
@@ -266,12 +304,12 @@ h2 {
 .contact-info p {
     font-size: 17px;
     line-height: 1.6;
-    color: var(--text-secondary);
+    color: var(--muted);
     margin-bottom: 8px;
 }
 
 .contact-info a {
-    color: var(--accent);
+    color: var(--primary);
     text-decoration: none;
     transition: opacity 0.2s;
 }
@@ -295,20 +333,27 @@ h2 {
     display: block;
 }
 
-/* Footer */
+/* ─── Footer ─────────────────────────────────────────────────────────────── */
 .footer {
-    background: #1D1D1F;
+    background: var(--footer-bg);
     padding: 28px 24px;
     text-align: center;
 }
 
 .footer p {
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--muted);
     letter-spacing: 0.1px;
 }
 
-/* Responsive */
+/* ─── Focus ──────────────────────────────────────────────────────────────── */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
     .nav-links { display: none; }
 
@@ -329,7 +374,71 @@ h2 {
     }
 }
 
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .navbar { transition: none; }
+    .navbar,
+    .nav-logo,
+    .nav-links a,
+    .contact-info a { transition: none; }
+    /* Safety net: tiles visible without animation */
+    .feature-tile { opacity: 1; transform: none; }
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+
+    /* Hero entrance — h1 resolves from blur as the page arrives */
+    @keyframes hero-reveal {
+        from { opacity: 0; transform: translateY(24px); filter: blur(10px); }
+        to   { opacity: 1; transform: translateY(0);    filter: blur(0);    }
+    }
+
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(14px); }
+        to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    .hero-content h1 {
+        animation: hero-reveal 750ms var(--ease-out-expo) both;
+    }
+
+    .hero-sub {
+        animation: fade-up 600ms var(--ease-out-expo) 200ms both;
+    }
+
+    /* Feature tile reveal — .is-visible added by IntersectionObserver */
+    .feature-tile {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 480ms var(--ease-out-quint),
+                    transform 480ms var(--ease-out-quint);
+    }
+
+    .feature-tile.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* Nav link underline — expands from left on hover */
+    .nav-links a {
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 200ms var(--ease-out-quint);
+    }
+
+    .nav-links a:hover::after {
+        transform: scaleX(1);
+    }
 }

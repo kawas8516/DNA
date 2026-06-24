@@ -28,7 +28,6 @@
 
     <section class="section-white" id="about">
         <div class="content-block">
-            <span class="eyebrow">Our Story</span>
             <h2>Built for creators,<br>developers, and gamers.</h2>
             <p>Discord Nation Alpha is a community of gamers, developers, and artists. Our goal is to provide a platform for people to connect, collaborate, and create together. We are committed to fostering a safe and welcoming environment where creativity, innovation, and collaboration thrive. By working together, we believe we can achieve great things and create a better world for everyone.</p>
         </div>
@@ -36,21 +35,20 @@
 
     <section class="section-surface" id="what-we-do">
         <div class="content-block">
-            <span class="eyebrow">What We Do</span>
             <h2>How we work together.</h2>
             <div class="feature-grid">
                 <div class="feature-tile">
-                    <div class="feature-icon">🤝</div>
+                    <span class="tile-num">01</span>
                     <h3>Connect</h3>
                     <p>Bring people together across communities and disciplines.</p>
                 </div>
                 <div class="feature-tile">
-                    <div class="feature-icon">💡</div>
+                    <span class="tile-num">02</span>
                     <h3>Collaborate</h3>
                     <p>Work side-by-side on projects that matter, from any location.</p>
                 </div>
                 <div class="feature-tile">
-                    <div class="feature-icon">✦</div>
+                    <span class="tile-num">03</span>
                     <h3>Create</h3>
                     <p>Build things worth sharing — content, tools, and community.</p>
                 </div>
@@ -69,7 +67,6 @@
     <section class="section-white" id="contact">
         <div class="contact-card">
             <div class="contact-info">
-                <span class="eyebrow">Get in Touch</span>
                 <h2>Let's talk.</h2>
                 <p>Delhi, India</p>
                 <p><a href="mailto:discordnationalpha.official@gmail.com">Email us</a></p>
@@ -90,6 +87,21 @@
         window.addEventListener('scroll', () => {
             navbar.classList.toggle('scrolled', window.scrollY > 10);
         });
+
+        // Feature tile stagger — observe the grid, stagger each tile 90ms apart
+        const featureGrid = document.querySelector('.feature-grid');
+        if (featureGrid) {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.querySelectorAll('.feature-tile').forEach((tile, i) => {
+                        setTimeout(() => tile.classList.add('is-visible'), i * 90);
+                    });
+                    io.unobserve(entry.target);
+                });
+            }, { threshold: 0.2 });
+            io.observe(featureGrid);
+        }
     </script>
 
 </body>
